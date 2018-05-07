@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: test-service-1
+security:
+  oauth2:
+    client:
+      clientId: test-service-1
+      clientSecret: test
+      accessTokenUri: http://localhost:5000/oauth/token
+      grant-type: client_credentials
+      scope: all
+    resource:
+      user-info-uri: http://localhost:5000/users/current
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:5001/eureka/
