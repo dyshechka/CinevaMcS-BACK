@@ -1,0 +1,361 @@
+{
+	"info": {
+		"_postman_id": "f7c162e1-91d5-4bc5-89c6-342cb987159b",
+		"name": "spring-cloud-demo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Авторизоваться напрямую",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a3fd40db-ad71-4423-8b15-ba2866ddf080",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"tests[\"Успешный ответ\"] = responseCode.code === 200;",
+							"tests[\"Токен пришел\"] = data.access_token !== undefined;",
+							"if (data.access_token !== undefined) {",
+							"    pm.environment.set(\"token\", data.access_token);",
+							"}"
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{secret}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{clientId}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "password",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "test",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "test",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:5000/oauth/token",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"oauth",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Авторизоваться через gateway",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "658e71c1-f403-43be-b12c-270e3ab0358c",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"tests[\"Успешный ответ\"] = responseCode.code === 200;",
+							"tests[\"Токен пришел\"] = data.access_token !== undefined;",
+							"if (data.access_token !== undefined) {",
+							"    pm.environment.set(\"token\", data.access_token);",
+							"}"
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{clientId}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{secret}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "password",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "test",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "test",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:5002/auth/oauth/token",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5002",
+					"path": [
+						"auth",
+						"oauth",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Текущий principal",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:5000/users/current",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"users",
+						"current"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "test-service-1 напрямую",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/test",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"test"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "test-service-2 напрямую",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8081/test",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"test"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "test-service-1 через gateway",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:5002/test-service-1/test",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5002",
+					"path": [
+						"test-service-1",
+						"test"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "test-service-2 через gateway",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:5002/test-service-2/test",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5002",
+					"path": [
+						"test-service-2",
+						"test"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "9b8d94e9-8054-46ef-91ff-a91cc47781ab",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "39163f2b-966e-4ed7-bd16-e651d1275531",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "90268eab-8df3-42c9-ad66-43b8bedaba94",
+			"key": "clientId",
+			"value": "client",
+			"type": "string",
+			"description": ""
+		},
+		{
+			"id": "dbbda411-e93f-4929-8dd7-161b7b1b335f",
+			"key": "secret",
+			"value": "",
+			"type": "string",
+			"description": ""
+		}
+	]
+}
