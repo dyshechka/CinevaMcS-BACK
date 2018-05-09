@@ -47,11 +47,7 @@ public class Film extends AbstractDomain {
     )
     private List<Genre> genres = new ArrayList<>();
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "rental_period_film",
-            joinColumns = {@JoinColumn(name = "id_film")},
-            inverseJoinColumns = {@JoinColumn(name = "id_rental_period")}
-    )
-    private List<RentalPeriod> rentalPeriods = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name = "id_rental_period")
+    private RentalPeriod rentalPeriod;
 }

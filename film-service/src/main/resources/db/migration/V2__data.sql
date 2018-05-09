@@ -18,9 +18,9 @@ insert into film_mcs.rental_period (date_begin, date_end, id_film_format) values
 insert into film_mcs.rental_period (date_begin, date_end, id_film_format) values ('2018-01-07', '2018-01-21', 1);
 insert into film_mcs.rental_period (date_begin, date_end, id_film_format) values ('2018-01-07', '2018-01-21', 2);
 
-insert into film_mcs.film (name, duration, imdb) values ('Test 1', 120, 9.03);
-insert into film_mcs.film (name, duration, imdb) values ('Test 2', 90, 5.53);
-insert into film_mcs.film (name, duration, imdb) values ('Test 3', 110, 8);
+insert into film_mcs.film (name, duration, imdb, id_rental_period) values ('Test 1', 120, 9.03, 1);
+insert into film_mcs.film (name, duration, imdb, id_rental_period) values ('Test 2', 90, 5.53, 1);
+insert into film_mcs.film (name, duration, imdb, id_rental_period) values ('Test 3', 110, 8, 2);
 
 insert into film_mcs.age_restriction_film (id_film, id_age_restriction) values (1, 1);
 insert into film_mcs.age_restriction_film (id_film, id_age_restriction) values (2, 2);

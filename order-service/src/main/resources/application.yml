@@ -1,0 +1,42 @@
+spring:
+  application:
+    name: order-service
+  datasource:
+    url: jdbc:mysql://localhost:3306/order_mcs
+    username: garro
+    password: yiZ#gbgVR&HaKd2@GUHk^Vr.
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+#    hibernate:
+#      ddl-auto: validate
+security:
+  oauth2:
+    client:
+      clientId: order-service
+      clientSecret: test
+      accessTokenUri: http://localhost:5000/oauth/token
+      grant-type: client_credentials
+      scope: all
+    resource:
+      user-info-uri: http://localhost:5000/users/current
+flyway:
+  baseline-on-migrate: true
+logging:
+  level:
+    org:
+      hibernate: DEBUG
+server:
+  port: 8084
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:5001/eureka/
+mcs:
+  film:
+    url: http://localhost:8080
+  seance:
+    url: http://localhost:8081
+  hall:
+    url: http://localhost:8082

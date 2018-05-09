@@ -5,7 +5,10 @@ import cinema.cloud.service.film.service.FilmService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.ArrayList;
 
 @RestController
 public class FilmController {
@@ -14,8 +17,12 @@ public class FilmController {
     private FilmService filmService;
 
     @RequestMapping(value = "/films", method = RequestMethod.GET)
-    public Iterable<Film> getAllFilms() {
-        return filmService.getAllFilms();
+    public ArrayList<Film> getAllFilms(@RequestParam("dateTime") Long dateTime) {
+        if (dateTime == null) {
+            return filmService.getAllFilms();
+        } else {
+            return filmService.getFilmsByDate(dateTime);
+        }
     }
 
 }
