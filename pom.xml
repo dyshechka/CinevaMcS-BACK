@@ -19,5 +19,6 @@
         <module>film-service</module>
         <module>hall-service</module>
         <module>order-service</module>
+        <module>seance-service</module>
     </modules>
 </project>
