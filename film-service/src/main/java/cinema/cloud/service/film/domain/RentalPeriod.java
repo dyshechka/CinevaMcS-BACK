@@ -1,4 +1,4 @@
-package cinema.cloud.service.domain;
+package cinema.cloud.service.film.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;

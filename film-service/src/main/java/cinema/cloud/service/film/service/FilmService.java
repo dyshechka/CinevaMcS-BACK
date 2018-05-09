@@ -1,7 +1,7 @@
-package cinema.cloud.service.service;
+package cinema.cloud.service.film.service;
 
-import cinema.cloud.service.domain.Film;
-import cinema.cloud.service.repository.FilmRepository;
+import cinema.cloud.service.film.domain.Film;
+import cinema.cloud.service.film.repository.FilmRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

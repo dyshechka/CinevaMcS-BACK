@@ -1,4 +1,4 @@
-package cinema.cloud.service;
+package cinema.cloud.service.film;
 
 import feign.RequestInterceptor;
 import org.springframework.boot.SpringApplication;

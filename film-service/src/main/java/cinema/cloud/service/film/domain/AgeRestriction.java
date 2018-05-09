@@ -1,4 +1,4 @@
-package cinema.cloud.service.domain;
+package cinema.cloud.service.film.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
@@ -12,13 +12,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "genre")
+@Table(name = "age_restriction")
 @Data
 @EqualsAndHashCode(callSuper = true)
-@ToString(callSuper = true)
-public class Genre extends AbstractDomain {
-    private static final long serialVersionUID = 2885513627962453594L;
-    @ManyToMany(mappedBy = "genres")
+@ToString(callSuper = true, exclude = "films")
+public class AgeRestriction extends AbstractDomain {
+    private static final long serialVersionUID = -8601769985921848204L;
+    @ManyToMany(mappedBy = "ageRestrictions")
     @JsonIgnore
     private List<Film> films = new ArrayList<>();
 }

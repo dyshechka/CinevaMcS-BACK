@@ -1,4 +1,4 @@
-package cinema.cloud.service.domain;
+package cinema.cloud.service.film.domain;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

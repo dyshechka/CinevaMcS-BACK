@@ -1,6 +1,6 @@
-package cinema.cloud.service.repository;
+package cinema.cloud.service.film.repository;
 
-import cinema.cloud.service.domain.Film;
+import cinema.cloud.service.film.domain.Film;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
