@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 @MappedSuperclass
 @Data
-abstract class AbstractDomain implements Serializable {
+public abstract class AbstractDomain implements Serializable {
 
     private static final long serialVersionUID = -6480983749128439560L;
 

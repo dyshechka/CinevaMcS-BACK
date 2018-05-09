@@ -10,8 +10,6 @@ import java.util.List;
 
 @Repository
 public interface SeanceRepository extends CrudRepository<Seance, Integer> {
-
     @Query("SELECT s FROM Seance s WHERE s.filmId = :filmId")
     List<Seance> getSeancesByFilmId(@Param("filmId") Integer filmId);
-
 }

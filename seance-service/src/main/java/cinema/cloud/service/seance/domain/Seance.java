@@ -2,12 +2,11 @@ package cinema.cloud.service.seance.domain;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.hibernate.annotations.Type;
-import org.joda.time.DateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import java.util.Date;
 
 @Entity
 @Table(name = "seance")
@@ -17,8 +16,7 @@ public class Seance extends AbstractDomain {
     private static final long serialVersionUID = -8895361253158910155L;
 
     @Column
-    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-    private DateTime time;
+    private Date time;
 
     @Column(columnDefinition = "TINYINT")
     private Boolean availability;

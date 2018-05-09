@@ -21,6 +21,9 @@ public class Seat extends AbstractDomain {
     @Column
     private Integer number;
 
+    @Column
+    private Integer row;
+
     @ManyToOne
     @JoinColumn(name = "id_hall")
     private Hall hall;

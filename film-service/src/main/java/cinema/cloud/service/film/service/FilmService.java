@@ -1,5 +1,8 @@
 package cinema.cloud.service.film.service;
 
+import cinema.cloud.service.film.api.FilmWithSeance;
+import cinema.cloud.service.film.api.Seance;
+import cinema.cloud.service.film.client.SeanceClient;
 import cinema.cloud.service.film.domain.Film;
 import cinema.cloud.service.film.repository.FilmRepository;
 import com.google.common.collect.Lists;
@@ -17,12 +20,8 @@ public class FilmService {
     @Autowired
     private FilmRepository repository;
 
-    @Transactional
-    public ArrayList<Film> getAllFilms() {
-        Iterable<Film> all = repository.findAll();
-        Assert.notNull(all, "Null result from DB");
-        return Lists.newArrayList(repository.findAll());
-    }
+    @Autowired
+    private SeanceClient seanceClient;
 
     @Transactional
     public ArrayList<Film> getFilmsByDate(Long dateTime) {
@@ -33,5 +32,23 @@ public class FilmService {
                 .filter(film -> film.getRentalPeriod().getDateBegin().isBefore(dateTime))
                 .filter(film -> film.getRentalPeriod().getDateEnd().isAfter(dateTime))
                 .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    @Transactional
+    public ArrayList<Seance> getSeancesForFilm(Integer filmId) {
+        Iterable<Seance> seancesForFilms = seanceClient.getSeancesForFilms(filmId);
+        Assert.notNull(seancesForFilms, "Null result from DB");
+        return Lists.newArrayList(seancesForFilms);
+    }
+
+    @Transactional
+    public ArrayList<FilmWithSeance> getFilmsWithSeances(Long dateTime) {
+        ArrayList<FilmWithSeance> filmsWithSeances = new ArrayList<>();
+        ArrayList<Film> filmsByDate = getFilmsByDate(dateTime);
+        filmsByDate.forEach(film -> {
+            filmsWithSeances.add(new FilmWithSeance(film, getSeancesForFilm(film.getId())));
+        });
+
+        return filmsWithSeances;
     }
 }
