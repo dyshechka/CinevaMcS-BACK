@@ -16,5 +16,6 @@
         <module>gateway-service</module>
         <module>test-service-1</module>
         <module>test-service-2</module>
+        <module>film-service</module>
     </modules>
 </project>
