@@ -3,6 +3,7 @@ package cinema.cloud.service.order.api.domain;
 import lombok.*;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Getter
 @Setter
@@ -16,5 +17,9 @@ public class Film extends AbstractDomain {
     private Integer duration;
 
     private BigDecimal imdb;
+
+    private RentalPeriod rentalPeriod;
+
+    private List<AgeRestriction> ageRestrictions;
 
 }

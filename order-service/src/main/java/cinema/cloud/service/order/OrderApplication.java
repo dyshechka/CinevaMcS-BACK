@@ -7,6 +7,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.feign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
+import org.springframework.hateoas.config.EnableHypermediaSupport;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,6 +23,7 @@ import org.springframework.security.oauth2.provider.authentication.OAuth2Authent
 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
 @EnableFeignClients
 @EnableEurekaClient
+@EnableHypermediaSupport(type = EnableHypermediaSupport.HypermediaType.HAL)
 public class OrderApplication {
     public static void main(String[] args) {
         SpringApplication.run(OrderApplication.class);

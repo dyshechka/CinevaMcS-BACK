@@ -8,6 +8,7 @@ import org.springframework.web.context.annotation.SessionScope;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.List;
 
 @Component
 @SessionScope
@@ -18,7 +19,7 @@ public class OrderSession implements Serializable {
 
     private Seance seance;
 
-    private Seat seat;
+    private List<Seat> seats;
 
     private BigDecimal price;
 

@@ -1,4 +1,4 @@
-package cinema.cloud.service.seance.integration;
+package cinema.cloud.service.seance.controller;
 
 import cinema.cloud.service.seance.domain.Seance;
 import cinema.cloud.service.seance.repository.SeanceRepository;

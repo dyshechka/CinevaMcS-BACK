@@ -1,4 +1,4 @@
-package cinema.cloud.service.order.request;
+package cinema.cloud.service.order.api.request;
 
 import lombok.EqualsAndHashCode;
 

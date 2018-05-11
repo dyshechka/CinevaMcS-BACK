@@ -2,8 +2,9 @@ package cinema.cloud.service.order.api.domain;
 
 import lombok.*;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -13,9 +14,14 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode
 public class Seance implements Serializable {
     private static final long serialVersionUID = -8895361253158910155L;
+    @NotNull
     private Integer id;
-    private LocalDateTime time;
+    @NotNull
+    private Date time;
+    @NotNull
     private Boolean availability;
+    @NotNull
     private Integer filmId;
+    @NotNull
     private Integer hallId;
 }

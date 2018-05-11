@@ -2,12 +2,11 @@ package cinema.cloud.service.film.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
-import org.hibernate.annotations.Type;
-import org.joda.time.DateTime;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -19,11 +18,9 @@ public class RentalPeriod implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Column
-    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-    private DateTime dateBegin;
+    private Date dateBegin;
     @Column
-    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-    private DateTime dateEnd;
+    private Date dateEnd;
     @OneToMany(mappedBy = "rentalPeriod")
     @JsonIgnore
     private List<Film> films = new ArrayList<>();

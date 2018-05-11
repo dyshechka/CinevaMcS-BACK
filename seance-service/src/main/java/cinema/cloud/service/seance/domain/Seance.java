@@ -1,19 +1,19 @@
 package cinema.cloud.service.seance.domain;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 @Table(name = "seance")
 @Data
-@EqualsAndHashCode(callSuper = true)
-public class Seance extends AbstractDomain {
+public class Seance {
     private static final long serialVersionUID = -8895361253158910155L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
     @Column
     private Date time;

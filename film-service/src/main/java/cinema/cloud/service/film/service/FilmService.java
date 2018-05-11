@@ -12,6 +12,7 @@ import org.springframework.util.Assert;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.stream.Collectors;
 
 @Service
@@ -29,8 +30,8 @@ public class FilmService {
         Assert.notNull(all, "Null result from DB");
         ArrayList<Film> films = Lists.newArrayList(repository.findAll());
         return films.stream()
-                .filter(film -> film.getRentalPeriod().getDateBegin().isBefore(dateTime))
-                .filter(film -> film.getRentalPeriod().getDateEnd().isAfter(dateTime))
+                .filter(film -> film.getRentalPeriod().getDateBegin().before(new Date(dateTime)))
+                .filter(film -> film.getRentalPeriod().getDateEnd().after(new Date(dateTime)))
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
