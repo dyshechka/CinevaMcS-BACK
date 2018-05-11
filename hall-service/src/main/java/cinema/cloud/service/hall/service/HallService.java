@@ -14,5 +14,4 @@ public class HallService {
     public Iterable<Hall> getAllHalls() {
         return hallRepository.findAll();
     }
-
 }
