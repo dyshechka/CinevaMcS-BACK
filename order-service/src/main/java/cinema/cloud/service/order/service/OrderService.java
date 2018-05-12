@@ -109,8 +109,10 @@ public class OrderService {
         order.setCost(orderResponse.getCommonCost());
         order.setOrderDate(Calendar.getInstance().getTime());
         order.setTickets(orderResponse.getTickets());
+        order.getTickets().forEach(ticket -> ticket.setOrder(order));
         order.setUsername(username);
-        orderRepository.save(order);
+        TicketOrder savedOrder = orderRepository.save(order);
+        orderResponse.setOrderId(savedOrder.getId());
         return orderResponse;
     }
 }
