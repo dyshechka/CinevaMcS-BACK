@@ -10,7 +10,7 @@ import java.util.List;
 
 @Data
 @AllArgsConstructor
-public class TicketsResponse implements Serializable {
+public class OrderResponse implements Serializable {
     private static final long serialVersionUID = -1626626867489371973L;
     private List<Ticket> tickets;
     private BigDecimal commonCost;

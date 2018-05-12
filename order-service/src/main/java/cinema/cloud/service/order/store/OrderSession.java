@@ -2,12 +2,12 @@ package cinema.cloud.service.order.store;
 
 import cinema.cloud.service.order.api.domain.Seance;
 import cinema.cloud.service.order.api.domain.Seat;
+import cinema.cloud.service.order.api.response.OrderResponse;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.List;
 
 @Component
@@ -21,6 +21,6 @@ public class OrderSession implements Serializable {
 
     private List<Seat> seats;
 
-    private BigDecimal price;
+    private OrderResponse orderResponse;
 
 }
