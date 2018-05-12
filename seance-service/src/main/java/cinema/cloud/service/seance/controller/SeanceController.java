@@ -2,12 +2,12 @@ package cinema.cloud.service.seance.controller;
 
 import cinema.cloud.service.seance.domain.Seance;
 import cinema.cloud.service.seance.repository.SeanceRepository;
+import cinema.cloud.service.seance.request.GetSeancesByDateAndHallRequest;
+import cinema.cloud.service.seance.service.SeanceService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -15,12 +15,24 @@ import java.util.List;
 public class SeanceController {
 
     @Autowired
+    private SeanceService seanceService;
+
+    @Autowired
     private SeanceRepository seanceRepository;
 
-    @ResponseBody
-    @GetMapping(value = "/film/{id}/seances", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/film/{id}/seances")
     public List<Seance> getSeancesByFilmId(@PathVariable Integer id) {
         return seanceRepository.getSeancesByFilmId(id);
     }
 
+    @PostMapping(value = "/seancesByDateAndHall")
+    public Iterable<Seance> getSeancesForDateAndHall(@RequestBody GetSeancesByDateAndHallRequest request) {
+        return seanceService.getSeancesForDateAndHallId(request);
+    }
+
+    @PostMapping(value = "/saveSeanceList")
+    public ResponseEntity saveSeanceList(@RequestBody List<Seance> seances) {
+        seanceService.saveSeanceList(seances);
+        return new ResponseEntity(HttpStatus.OK);
+    }
 }
