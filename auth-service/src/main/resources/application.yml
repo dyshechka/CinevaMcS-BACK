@@ -8,6 +8,8 @@ spring:
       port: 27017
 server:
   port: 5000
+cors:
+  origin: '*'
 logging:
   level:
     org:
