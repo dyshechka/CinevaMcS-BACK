@@ -6,17 +6,14 @@ insert into film_mcs.country (name) values ('США');
 insert into film_mcs.country (name) values ('Великобритания');
 insert into film_mcs.country (name) values ('Канада');
 
-insert into film_mcs.film_format (name) values ('2D');
-insert into film_mcs.film_format (name) values ('3D');
-
 insert into film_mcs.genre (name) values ('Триллер');
 insert into film_mcs.genre (name) values ('Комедия');
 insert into film_mcs.genre (name) values ('Драма');
 
-insert into film_mcs.rental_period (date_begin, date_end, id_film_format) values ('2018-01-01', '2018-01-14', 1);
-insert into film_mcs.rental_period (date_begin, date_end, id_film_format) values ('2018-01-01', '2018-01-14', 2);
-insert into film_mcs.rental_period (date_begin, date_end, id_film_format) values ('2018-01-07', '2018-01-21', 1);
-insert into film_mcs.rental_period (date_begin, date_end, id_film_format) values ('2018-01-07', '2018-01-21', 2);
+insert into film_mcs.rental_period (date_begin, date_end) values ('2018-05-14', '2018-05-21');
+insert into film_mcs.rental_period (date_begin, date_end) values ('2018-05-07', '2018-05-21');
+insert into film_mcs.rental_period (date_begin, date_end) values ('2018-05-14', '2018-05-28');
+insert into film_mcs.rental_period (date_begin, date_end) values ('2018-05-14', '2018-05-28');
 
 insert into film_mcs.film (name, duration, imdb, id_rental_period) values ('Test 1', 120, 9.03, 1);
 insert into film_mcs.film (name, duration, imdb, id_rental_period) values ('Test 2', 90, 5.53, 2);

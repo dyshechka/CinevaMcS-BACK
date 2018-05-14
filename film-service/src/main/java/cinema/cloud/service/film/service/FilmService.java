@@ -28,7 +28,7 @@ public class FilmService {
     public ArrayList<Film> getFilmsByDate(Long dateTime) {
         Iterable<Film> all = repository.findAll();
         Assert.notNull(all, "Null result from DB");
-        ArrayList<Film> films = Lists.newArrayList(repository.findAll());
+        ArrayList<Film> films = Lists.newArrayList(all);
         return films.stream()
                 .filter(film -> film.getRentalPeriod().getDateBegin().before(new Date(dateTime)))
                 .filter(film -> film.getRentalPeriod().getDateEnd().after(new Date(dateTime)))

@@ -12,4 +12,5 @@ public class Seance implements Serializable {
     private Boolean availability;
     private Integer filmId;
     private Integer hallId;
+    private FilmFormat format;
 }

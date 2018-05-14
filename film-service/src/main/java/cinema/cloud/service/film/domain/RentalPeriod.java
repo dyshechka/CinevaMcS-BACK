@@ -24,7 +24,4 @@ public class RentalPeriod implements Serializable {
     @OneToMany(mappedBy = "rentalPeriod")
     @JsonIgnore
     private List<Film> films = new ArrayList<>();
-    @ManyToOne
-    @JoinColumn(name = "id_film_format")
-    private FilmFormat format;
 }

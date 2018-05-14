@@ -26,4 +26,8 @@ public class Seance {
 
     @Column(name = "hall_id")
     private Integer hallId;
+
+    @ManyToOne
+    @JoinColumn(name = "film_format_id")
+    private FilmFormat format;
 }
