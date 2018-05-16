@@ -1,7 +1,7 @@
 package cinema.cloud.service.hall.controller;
 
+import cinema.cloud.service.hall.api.RowWithSeats;
 import cinema.cloud.service.hall.domain.Hall;
-import cinema.cloud.service.hall.domain.Seat;
 import cinema.cloud.service.hall.service.HallService;
 import cinema.cloud.service.hall.service.SeatService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,7 @@ public class HallController {
     }
 
     @RequestMapping(value = "/seats/{hallId}", method = RequestMethod.GET)
-    public List<Seat> getSeatsForHall(@PathVariable("hallId") Integer hallId) {
+    public List<RowWithSeats> getSeatsForHall(@PathVariable("hallId") Integer hallId) {
         return seatService.getSeatsByHallId(hallId);
     }
 }
