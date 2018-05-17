@@ -3,13 +3,12 @@ package cinema.cloud.service.order.service;
 import cinema.cloud.service.order.api.domain.Film;
 import cinema.cloud.service.order.api.domain.Seance;
 import cinema.cloud.service.order.api.domain.Seat;
-import cinema.cloud.service.order.api.response.OrderResponse;
+import cinema.cloud.service.order.api.response.CinemaOrder;
 import cinema.cloud.service.order.client.FilmServiceClient;
 import cinema.cloud.service.order.domain.Ticket;
 import cinema.cloud.service.order.domain.TicketOrder;
 import cinema.cloud.service.order.repository.OrderRepository;
 import cinema.cloud.service.order.repository.TicketRepository;
-import cinema.cloud.service.order.store.OrderSession;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -28,36 +27,14 @@ import java.util.stream.Collectors;
 public class OrderService {
 
     @Autowired
-    private OrderSession orderSession;
-
-    @Autowired
     private FilmServiceClient filmServiceClient;
-
-    private static final BigDecimal COST_OF_TICKET = new BigDecimal(50);
     @Autowired
     private OrderRepository orderRepository;
-    @Autowired
-    private TicketRepository ticketRepository;
 
-    public void saveSeanceWithFilm(Seance seance) {
-        orderSession.setSeance(seance);
-    }
-
-    public boolean saveSeat(List<Seat> seats) {
-        Seance seance = orderSession.getSeance();
-        ArrayList<Integer> seatIds = seats.stream().map(Seat::getId).collect(Collectors.toCollection(ArrayList::new));
-        List<Ticket> ticketsByIdsAndAndSeanceTime = ticketRepository.getTicketsByIdsAndAndSeanceTime(seatIds, seance.getTime(), seance.getHallId());
-        if (!ticketsByIdsAndAndSeanceTime.isEmpty()) {
-            return false;
-        }
-        orderSession.setSeats(seats);
-        return true;
-    }
+    private static final BigDecimal COST_OF_TICKET = new BigDecimal(50);
 
     @Transactional
-    public OrderResponse calculateOrderCost() {
-        Seance seance = orderSession.getSeance();
-        List<Seat> seats = orderSession.getSeats();
+    public CinemaOrder calculateOrderCost(Seance seance, List<Seat> seats) {
         DateTime time = new DateTime(seance.getTime());
         Film film = filmServiceClient.getFilmById(seance.getFilmId());
         DateTime dateBegin1 = film.getRentalPeriod().getDateBegin();
@@ -79,8 +56,7 @@ public class OrderService {
                     Ticket ticket = new Ticket();
                     ticket.setCost(ticketCost);
                     ticket.setSeatId(seat.getId());
-                    ticket.setSeanceTime(seance.getTime());
-                    ticket.setHallId(seance.getHallId());
+                    ticket.setSeanceId(seance.getId());
                     ticket.setDate(Calendar.getInstance().getTime());
                     StringBuilder filmName = new StringBuilder();
                     filmName.append(film.getName());
@@ -96,23 +72,20 @@ public class OrderService {
             commonCost = commonCost.add(ticket.getCost());
         }
 
-        OrderResponse response = new OrderResponse(tickets, commonCost);
-        orderSession.setOrderResponse(response);
-        return response;
+        return new CinemaOrder(tickets, commonCost);
     }
 
     @Transactional
-    public OrderResponse saveOrder() {
-        OrderResponse orderResponse = orderSession.getOrderResponse();
+    public CinemaOrder saveOrder(CinemaOrder cinemaOrder) {
         TicketOrder order = new TicketOrder();
         String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        order.setCost(orderResponse.getCommonCost());
+        order.setCost(cinemaOrder.getCommonCost());
         order.setOrderDate(Calendar.getInstance().getTime());
-        order.setTickets(orderResponse.getTickets());
+        order.setTickets(cinemaOrder.getTickets());
         order.getTickets().forEach(ticket -> ticket.setOrder(order));
         order.setUsername(username);
         TicketOrder savedOrder = orderRepository.save(order);
-        orderResponse.setOrderId(savedOrder.getId());
-        return orderResponse;
+        cinemaOrder.setOrderId(savedOrder.getId());
+        return cinemaOrder;
     }
 }

@@ -8,6 +8,7 @@ import java.util.Date;
 @Data
 public class Seance implements Serializable {
     private static final long serialVersionUID = -8895361253158910155L;
+    private Integer id;
     private Date time;
     private Boolean availability;
     private Integer filmId;

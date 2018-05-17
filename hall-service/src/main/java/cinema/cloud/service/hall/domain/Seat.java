@@ -27,4 +27,6 @@ public class Seat extends AbstractDomain {
     @ManyToOne
     @JoinColumn(name = "id_hall")
     private Hall hall;
+
+    private Boolean free;
 }

@@ -10,10 +10,9 @@ import java.util.List;
 
 public interface TicketRepository extends CrudRepository<Ticket, Integer> {
 
-    @Query("select t from Ticket t where seance_time = :seanceTime and hall_id = :hall_id and seat_id in :ids")
+    @Query("select t from Ticket t where t.seanceId = :seanceId and t.seatId in :ids")
     List<Ticket> getTicketsByIdsAndAndSeanceTime(
             @Param("ids") List<Integer> ids,
-            @Param("seanceTime") Date seanceTime,
-            @Param("hall_id") Integer hallId);
+            @Param("seanceId") Integer hallId);
 
 }

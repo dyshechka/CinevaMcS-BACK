@@ -1,5 +1,6 @@
 package cinema.cloud.service.hall.controller;
 
+import cinema.cloud.service.hall.api.HallWithRows;
 import cinema.cloud.service.hall.api.RowWithSeats;
 import cinema.cloud.service.hall.domain.Hall;
 import cinema.cloud.service.hall.service.HallService;
@@ -27,7 +28,7 @@ public class HallController {
     }
 
     @RequestMapping(value = "/seats/{hallId}", method = RequestMethod.GET)
-    public List<RowWithSeats> getSeatsForHall(@PathVariable("hallId") Integer hallId) {
+    public HallWithRows getSeatsForHall(@PathVariable("hallId") Integer hallId) {
         return seatService.getSeatsByHallId(hallId);
     }
 }

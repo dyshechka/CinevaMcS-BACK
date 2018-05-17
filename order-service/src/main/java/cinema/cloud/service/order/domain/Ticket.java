@@ -18,12 +18,10 @@ public class Ticket implements Serializable {
     private String film;
     @Column
     private Date date;
-    @Column(name = "seance_time")
-    private Date seanceTime;
+    @Column(name = "seance_id")
+    private Integer seanceId;
     @Column(name = "seat_id")
     private Integer seatId;
-    @Column(name = "hall_id")
-    private Integer hallId;
     @Column
     private BigDecimal cost;
     @ManyToOne
