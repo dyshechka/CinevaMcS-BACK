@@ -3,7 +3,6 @@ package cinema.cloud.service.hall.service;
 import cinema.cloud.service.hall.api.HallWithRows;
 import cinema.cloud.service.hall.api.RowWithSeats;
 import cinema.cloud.service.hall.client.OrderClient;
-import cinema.cloud.service.hall.domain.Hall;
 import cinema.cloud.service.hall.domain.Seat;
 import cinema.cloud.service.hall.repository.HallRepository;
 import cinema.cloud.service.hall.repository.SeatRepository;
@@ -54,6 +53,10 @@ public class SeatService {
         });
 
         return new HallWithRows(hallRepository.findOne(hallId).getName(), rowsWithSeats);
+    }
+
+    public Iterable<Seat> getSeatsByIds(List<Integer> seatIds) {
+        return seatRepository.findAll(seatIds);
     }
 
 }

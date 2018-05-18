@@ -33,4 +33,9 @@ public class SeanceService {
     public void saveSeanceList(List<Seance> seances) {
         seanceRepository.save(seances);
     }
+
+    @Transactional
+    public Seance getSeanceById(Integer id) {
+        return seanceRepository.findOne(id);
+    }
 }

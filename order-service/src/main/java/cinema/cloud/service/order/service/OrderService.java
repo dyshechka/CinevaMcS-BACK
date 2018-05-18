@@ -5,6 +5,8 @@ import cinema.cloud.service.order.api.domain.Seance;
 import cinema.cloud.service.order.api.domain.Seat;
 import cinema.cloud.service.order.api.response.CinemaOrder;
 import cinema.cloud.service.order.client.FilmServiceClient;
+import cinema.cloud.service.order.client.HallServiceClient;
+import cinema.cloud.service.order.client.SeanceClient;
 import cinema.cloud.service.order.domain.Ticket;
 import cinema.cloud.service.order.domain.TicketOrder;
 import cinema.cloud.service.order.repository.OrderRepository;
@@ -32,6 +34,10 @@ public class OrderService {
     private OrderRepository orderRepository;
     @Autowired
     private TicketRepository ticketRepository;
+    @Autowired
+    private HallServiceClient hallServiceClient;
+    @Autowired
+    private SeanceClient seanceClient;
 
     private static final BigDecimal COST_OF_TICKET = new BigDecimal(50);
 
@@ -44,9 +50,11 @@ public class OrderService {
     }
 
     @Transactional
-    public CinemaOrder calculateOrderCost(Seance seance, List<Seat> seats) {
-        DateTime time = new DateTime(seance.getTime());
+    public CinemaOrder calculateOrderCost(Integer seanceId, List<Integer> seatsIds) {
+        Seance seance = seanceClient.getSeanceById(seanceId);
+        List<Seat> seats = hallServiceClient.getSeats(seatsIds);
         Film film = filmServiceClient.getFilmById(seance.getFilmId());
+        DateTime time = new DateTime(seance.getTime());
         DateTime dateBegin1 = film.getRentalPeriod().getDateBegin();
         DateTime dateBegin2 = film.getRentalPeriod().getDateEnd();
         LocalDateTime dateEnd = LocalDateTime.of(dateBegin1.getYear(), dateBegin1.getMonthOfYear(), dateBegin1.getDayOfMonth(), dateBegin1.getHourOfDay(), dateBegin1.getMinuteOfDay());

@@ -35,4 +35,9 @@ public class SeanceController {
         seanceService.saveSeanceList(seances);
         return new ResponseEntity(HttpStatus.OK);
     }
+
+    @GetMapping(value = "/seance/{id}")
+    public Seance getSeanceById(@PathVariable Integer id) {
+        return seanceService.getSeanceById(id);
+    }
 }

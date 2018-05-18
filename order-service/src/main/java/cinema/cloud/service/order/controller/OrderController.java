@@ -19,7 +19,7 @@ public class OrderController {
 
     @PostMapping(value = "/calculate")
     public ResponseEntity<CinemaOrder> calculate(@RequestBody CalculateOrderRequest request) {
-        return new ResponseEntity(orderService.calculateOrderCost(request.getSeance(), request.getSeats()), HttpStatus.OK);
+        return new ResponseEntity(orderService.calculateOrderCost(request.getSeanceId(), request.getSeatIds()), HttpStatus.OK);
     }
 
     @PostMapping(value = "/approve")
