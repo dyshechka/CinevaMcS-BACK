@@ -30,8 +30,18 @@ public class OrderService {
     private FilmServiceClient filmServiceClient;
     @Autowired
     private OrderRepository orderRepository;
+    @Autowired
+    private TicketRepository ticketRepository;
 
     private static final BigDecimal COST_OF_TICKET = new BigDecimal(50);
+
+    @Transactional
+    public List<Integer> getBlockedSeatIdsForSeance(Integer seanceId) {
+        List<Ticket> ticketsBySeanceAndIds = ticketRepository.getTicketsBySeanceId(seanceId);
+        List<Integer> blockedSeatIds = new ArrayList<>();
+        ticketsBySeanceAndIds.forEach(ticket -> blockedSeatIds.add(ticket.getSeatId()));
+        return blockedSeatIds;
+    }
 
     @Transactional
     public CinemaOrder calculateOrderCost(Seance seance, List<Seat> seats) {

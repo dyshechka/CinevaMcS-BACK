@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/order")
 public class OrderController {
@@ -23,5 +25,10 @@ public class OrderController {
     @PostMapping(value = "/approve")
     public ResponseEntity<CinemaOrder> approve(@RequestBody CinemaOrder cinemaOrder) {
         return new ResponseEntity(orderService.saveOrder(cinemaOrder), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/seanceTickets/{seanceId}")
+    public ResponseEntity<List<Integer>> getTicketForSeance(@PathVariable Integer seanceId) {
+        return new ResponseEntity(orderService.getBlockedSeatIdsForSeance(seanceId), HttpStatus.OK);
     }
 }

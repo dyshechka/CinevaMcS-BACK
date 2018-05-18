@@ -28,5 +28,6 @@ public class Seat extends AbstractDomain {
     @JoinColumn(name = "id_hall")
     private Hall hall;
 
+    @Transient
     private Boolean free;
 }

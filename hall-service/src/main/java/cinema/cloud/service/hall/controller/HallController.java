@@ -6,10 +6,7 @@ import cinema.cloud.service.hall.domain.Hall;
 import cinema.cloud.service.hall.service.HallService;
 import cinema.cloud.service.hall.service.SeatService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,8 +24,8 @@ public class HallController {
         return hallService.getAllHalls();
     }
 
-    @RequestMapping(value = "/seats/{hallId}", method = RequestMethod.GET)
-    public HallWithRows getSeatsForHall(@PathVariable("hallId") Integer hallId) {
-        return seatService.getSeatsByHallId(hallId);
+    @RequestMapping(value = "/seats", method = RequestMethod.GET)
+    public HallWithRows getSeatsForHall(@RequestParam Integer hallId, @RequestParam Integer seanceId) {
+        return seatService.getSeatsByHallId(hallId, seanceId);
     }
 }
