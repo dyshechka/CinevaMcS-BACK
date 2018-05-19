@@ -45,9 +45,13 @@ public class UsersController {
         CinemaUser cinemaUser = ((CinemaUser) ((OAuth2Authentication) principal).getUserAuthentication().getPrincipal());
         userInfo.setUsername(cinemaUser.getUsername());
         userInfo.setEmail(cinemaUser.getEmail());
+        userInfo.setFirstName(cinemaUser.getFirstName());
+        userInfo.setLastName(cinemaUser.getLastName());
+        userInfo.setSex(cinemaUser.getSex());
         ArrayList<? extends GrantedAuthority> grantedAuthorities = new ArrayList<>(cinemaUser.getAuthorities());
         SimpleGrantedAuthority grantedAuthority = (SimpleGrantedAuthority) grantedAuthorities.get(0);
         userInfo.setRole(grantedAuthority.getAuthority());
+
         return userInfo;
     }
 }
