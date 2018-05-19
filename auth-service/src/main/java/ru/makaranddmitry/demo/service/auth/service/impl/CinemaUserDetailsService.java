@@ -17,7 +17,7 @@ public class CinemaUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        CinemaUser user = cinemaUserRepository.findByUsername(username);
+        CinemaUser user = cinemaUserRepository.findOne(username);
         Assert.notNull(user, "User with such username wasn't found");
         return user;
     }

@@ -13,22 +13,28 @@ import java.util.List;
 @Data
 public class CinemaUser implements UserDetails {
 
+    private static final long serialVersionUID = -961738331894747596L;
+
     @Id
     private String id;
     private String username;
     private String password;
     private String email;
+    private String firstName;
+    private String lastName;
+    private Boolean sex;
     private List<GrantedAuthority> authorities;
 
     public CinemaUser() {
     }
 
-    public CinemaUser(String id, String username, String password, String email, List<GrantedAuthority> authorities) {
-        this.id = id;
+    public CinemaUser(String username, String password, String email, String firstName, String lastName, Boolean sex) {
         this.username = username;
         this.password = password;
         this.email = email;
-        this.authorities = authorities;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.sex = sex;
     }
 
     @Override

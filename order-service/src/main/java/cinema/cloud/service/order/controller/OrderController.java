@@ -36,4 +36,9 @@ public class OrderController {
     public ResponseEntity<CinemaOrder> getMockOrder() {
         return new ResponseEntity(orderService.getMockOrder(), HttpStatus.OK);
     }
+
+    @GetMapping(value = "/userOrders")
+    public ResponseEntity<CinemaOrder> getUserOrders() {
+        return new ResponseEntity(orderService.getUserOrders(), HttpStatus.OK);
+    }
 }

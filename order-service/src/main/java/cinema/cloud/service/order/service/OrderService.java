@@ -108,6 +108,7 @@ public class OrderService {
         return cinemaOrder;
     }
 
+    @Transactional
     public CinemaOrder getMockOrder() {
         TicketOrder one = orderRepository.findOne(2);
         CinemaOrder cinemaOrder = new CinemaOrder();
@@ -116,5 +117,22 @@ public class OrderService {
         cinemaOrder.setCommonCost(one.getCost());
         cinemaOrder.setOrderDate(one.getOrderDate());
         return cinemaOrder;
+    }
+
+    @Transactional
+    public List<CinemaOrder> getUserOrders() {
+        String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        List<TicketOrder> ticketOrderByUsername = orderRepository.getTicketOrderByUsername(username);
+        List<CinemaOrder> cinemaOrders = new ArrayList<>();
+        ticketOrderByUsername.forEach(ticketOrder -> {
+            CinemaOrder cinemaOrder = new CinemaOrder();
+            cinemaOrder.setOrderId(ticketOrder.getId());
+            cinemaOrder.setTickets(ticketOrder.getTickets());
+            cinemaOrder.setCommonCost(ticketOrder.getCost());
+            cinemaOrder.setOrderDate(ticketOrder.getOrderDate());
+            cinemaOrders.add(cinemaOrder);
+        });
+
+        return cinemaOrders;
     }
 }

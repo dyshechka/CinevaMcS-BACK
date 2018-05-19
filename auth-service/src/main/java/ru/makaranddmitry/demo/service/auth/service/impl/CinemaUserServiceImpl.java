@@ -18,7 +18,7 @@ public class CinemaUserServiceImpl implements CinemaUserService {
 
     @Override
     public void createUser(CinemaUser user) {
-        CinemaUser existing = repository.findOne(user.getUsername());
+        CinemaUser existing = repository.getCinemaUserByUsername(user.getUsername());
         Assert.isNull(existing, "user already exists: " + user.getUsername());
         String hash = encoder.encode(user.getPassword());
         user.setPassword(hash);

@@ -11,7 +11,6 @@ import ru.makaranddmitry.demo.service.auth.service.CinemaUserService;
 import java.util.List;
 
 @Component
-// TODO create interface
 public class CinemaUserRegistrationManager {
 
     @Autowired
@@ -22,6 +21,9 @@ public class CinemaUserRegistrationManager {
         cinemaUser.setUsername(request.getUsername());
         cinemaUser.setPassword(request.getPassword());
         cinemaUser.setEmail(request.getEmail());
+        cinemaUser.setFirstName(request.getFirstName());
+        cinemaUser.setLastName(request.getLastName());
+        cinemaUser.setSex(request.getSex());
         List<GrantedAuthority> authorities = AuthorityUtils.createAuthorityList("ROLE_USER");
         cinemaUser.setAuthorities(authorities);
         cinemaUserService.createUser(cinemaUser);
