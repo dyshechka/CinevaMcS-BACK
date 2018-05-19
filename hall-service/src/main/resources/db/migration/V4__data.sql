@@ -1,0 +1,76 @@
+INSERT INTO hall_mcs.seat (vip, number, row, id_hall) VALUES (0, 1, 1, 2);
+INSERT INTO hall_mcs.seat (vip, number, row, id_hall) VALUES (0, 2, 1, 2);
+INSERT INTO hall_mcs.seat (vip, number, row, id_hall) VALUES (0, 3, 1, 2);
+INSERT INTO hall_mcs.seat (vip, number, row, id_hall) VALUES (0, 4, 1, 2);
+INSERT INTO hall_mcs.seat (vip, number, row, id_hall) VALUES (0, 5, 1, 2);
+INSERT INTO hall_mcs.seat (vip, number, row, id_hall) VALUES (0, 6, 1, 2);
+INSERT INTO hall_mcs.seat (vip, number, row, id_hall) VALUES (0, 7, 1, 2);
+
+INSERT INTO hall_mcs.seat (vip, number, row, id_hall) VALUES (0, 1, 2, 2);
+INSERT INTO hall_mcs.seat (vip, number, row, id_hall) VALUES (0, 2, 2, 2);
+INSERT INTO hall_mcs.seat (vip, number, row, id_hall) VALUES (1, 3, 2, 2);
+INSERT INTO hall_mcs.seat (vip, number, row, id_hall) VALUES (1, 4, 2, 2);
+INSERT INTO hall_mcs.seat (vip, number, row, id_hall) VALUES (1, 5, 2, 2);
+INSERT INTO hall_mcs.seat (vip, number, row, id_hall) VALUES (1, 6, 2, 2);
+INSERT INTO hall_mcs.seat (vip, number, row, id_hall) VALUES (0, 7, 2, 2);
+INSERT INTO hall_mcs.seat (vip, number, row, id_hall) VALUES (0, 8, 2, 2);
+
+INSERT INTO hall_mcs.seat (vip, number, row, id_hall) VALUES (0, 1, 3, 2);
+INSERT INTO hall_mcs.seat (vip, number, row, id_hall) VALUES (0, 2, 3, 2);
+INSERT INTO hall_mcs.seat (vip, number, row, id_hall) VALUES (1, 3, 3, 2);
+INSERT INTO hall_mcs.seat (vip, number, row, id_hall) VALUES (1, 4, 3, 2);
+INSERT INTO hall_mcs.seat (vip, number, row, id_hall) VALUES (1, 5, 3, 2);
+INSERT INTO hall_mcs.seat (vip, number, row, id_hall) VALUES (1, 6, 3, 2);
+INSERT INTO hall_mcs.seat (vip, number, row, id_hall) VALUES (1, 7, 3, 2);
+INSERT INTO hall_mcs.seat (vip, number, row, id_hall) VALUES (0, 8, 3, 2);
+INSERT INTO hall_mcs.seat (vip, number, row, id_hall) VALUES (0, 9, 3, 2);
+
+INSERT INTO hall_mcs.seat (vip, number, row, id_hall) VALUES (0, 1, 4, 2);
+INSERT INTO hall_mcs.seat (vip, number, row, id_hall) VALUES (0, 2, 4, 2);
+INSERT INTO hall_mcs.seat (vip, number, row, id_hall) VALUES (0, 3, 4, 2);
+INSERT INTO hall_mcs.seat (vip, number, row, id_hall) VALUES (1, 4, 4, 2);
+INSERT INTO hall_mcs.seat (vip, number, row, id_hall) VALUES (1, 5, 4, 2);
+INSERT INTO hall_mcs.seat (vip, number, row, id_hall) VALUES (1, 6, 4, 2);
+INSERT INTO hall_mcs.seat (vip, number, row, id_hall) VALUES (1, 7, 4, 2);
+INSERT INTO hall_mcs.seat (vip, number, row, id_hall) VALUES (0, 8, 4, 2);
+INSERT INTO hall_mcs.seat (vip, number, row, id_hall) VALUES (0, 9, 4, 2);
+INSERT INTO hall_mcs.seat (vip, number, row, id_hall) VALUES (0, 10, 4, 2);
+
+INSERT INTO hall_mcs.seat (vip, number, row, id_hall) VALUES (0, 1, 5, 2);
+INSERT INTO hall_mcs.seat (vip, number, row, id_hall) VALUES (0, 2, 5, 2);
+INSERT INTO hall_mcs.seat (vip, number, row, id_hall) VALUES (0, 3, 5, 2);
+INSERT INTO hall_mcs.seat (vip, number, row, id_hall) VALUES (1, 4, 5, 2);
+INSERT INTO hall_mcs.seat (vip, number, row, id_hall) VALUES (1, 5, 5, 2);
+INSERT INTO hall_mcs.seat (vip, number, row, id_hall) VALUES (1, 6, 5, 2);
+INSERT INTO hall_mcs.seat (vip, number, row, id_hall) VALUES (1, 7, 5, 2);
+INSERT INTO hall_mcs.seat (vip, number, row, id_hall) VALUES (1, 8, 5, 2);
+INSERT INTO hall_mcs.seat (vip, number, row, id_hall) VALUES (0, 9, 5, 2);
+INSERT INTO hall_mcs.seat (vip, number, row, id_hall) VALUES (0, 10, 5, 2);
+INSERT INTO hall_mcs.seat (vip, number, row, id_hall) VALUES (0, 11, 5, 2);
+
+INSERT INTO hall_mcs.seat (vip, number, row, id_hall) VALUES (0, 1, 6, 2);
+INSERT INTO hall_mcs.seat (vip, number, row, id_hall) VALUES (0, 2, 6, 2);
+INSERT INTO hall_mcs.seat (vip, number, row, id_hall) VALUES (0, 3, 6, 2);
+INSERT INTO hall_mcs.seat (vip, number, row, id_hall) VALUES (1, 4, 6, 2);
+INSERT INTO hall_mcs.seat (vip, number, row, id_hall) VALUES (1, 5, 6, 2);
+INSERT INTO hall_mcs.seat (vip, number, row, id_hall) VALUES (1, 6, 6, 2);
+INSERT INTO hall_mcs.seat (vip, number, row, id_hall) VALUES (1, 7, 6, 2);
+INSERT INTO hall_mcs.seat (vip, number, row, id_hall) VALUES (1, 8, 6, 2);
+INSERT INTO hall_mcs.seat (vip, number, row, id_hall) VALUES (1, 9, 6, 2);
+INSERT INTO hall_mcs.seat (vip, number, row, id_hall) VALUES (0, 10, 6, 2);
+INSERT INTO hall_mcs.seat (vip, number, row, id_hall) VALUES (0, 11, 6, 2);
+INSERT INTO hall_mcs.seat (vip, number, row, id_hall) VALUES (0, 12, 6, 2);
+
+INSERT INTO hall_mcs.seat (vip, number, row, id_hall) VALUES (0, 1, 7, 2);
+INSERT INTO hall_mcs.seat (vip, number, row, id_hall) VALUES (0, 2, 7, 2);
+INSERT INTO hall_mcs.seat (vip, number, row, id_hall) VALUES (0, 3, 7, 2);
+INSERT INTO hall_mcs.seat (vip, number, row, id_hall) VALUES (0, 4, 7, 2);
+INSERT INTO hall_mcs.seat (vip, number, row, id_hall) VALUES (0, 5, 7, 2);
+INSERT INTO hall_mcs.seat (vip, number, row, id_hall) VALUES (0, 6, 7, 2);
+INSERT INTO hall_mcs.seat (vip, number, row, id_hall) VALUES (0, 7, 7, 2);
+INSERT INTO hall_mcs.seat (vip, number, row, id_hall) VALUES (0, 8, 7, 2);
+INSERT INTO hall_mcs.seat (vip, number, row, id_hall) VALUES (0, 9, 7, 2);
+INSERT INTO hall_mcs.seat (vip, number, row, id_hall) VALUES (0, 10, 7, 2);
+INSERT INTO hall_mcs.seat (vip, number, row, id_hall) VALUES (0, 11, 7, 2);
+INSERT INTO hall_mcs.seat (vip, number, row, id_hall) VALUES (0, 12, 7, 2);
+INSERT INTO hall_mcs.seat (vip, number, row, id_hall) VALUES (0, 13, 7, 2);

@@ -13,7 +13,7 @@ import java.util.List;
 @Table(name = "film")
 @Data
 @EqualsAndHashCode(callSuper = true)
-@ToString(callSuper = true)
+@ToString(callSuper = true, exclude = "rentalPeriod")
 public class Film extends AbstractDomain {
 
     private static final long serialVersionUID = 5712452106362492423L;

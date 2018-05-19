@@ -6,12 +6,14 @@ import cinema.cloud.service.film.client.SeanceClient;
 import cinema.cloud.service.film.domain.Film;
 import cinema.cloud.service.film.repository.FilmRepository;
 import com.google.common.collect.Lists;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.stream.Collectors;
 
@@ -36,18 +38,28 @@ public class FilmService {
     }
 
     @Transactional
-    public ArrayList<Seance> getSeancesForFilm(Integer filmId) {
-        Iterable<Seance> seancesForFilms = seanceClient.getSeancesForFilms(filmId);
+    public ArrayList<Seance> getSeancesForFilm(Integer filmId, Long targetTime) {
+        Iterable<Seance> seancesForFilms = seanceClient.getSeancesForFilms(filmId, targetTime);
         Assert.notNull(seancesForFilms, "Null result from DB");
         return Lists.newArrayList(seancesForFilms);
     }
 
     @Transactional
     public ArrayList<FilmWithSeance> getFilmsWithSeances(Long dateTime) {
+        Calendar calendar = Calendar.getInstance();
+        DateTime limit = new DateTime(dateTime);
+        calendar.set(limit.getYear(), limit.getMonthOfYear() - 1, limit.getDayOfMonth() + 1, 23, 59);
         ArrayList<FilmWithSeance> filmsWithSeances = new ArrayList<>();
         ArrayList<Film> filmsByDate = getFilmsByDate(dateTime);
         filmsByDate.forEach(film -> {
-            filmsWithSeances.add(new FilmWithSeance(film, getSeancesForFilm(film.getId())));
+            ArrayList<Seance> seancesForFilm = getSeancesForFilm(film.getId(), dateTime);
+            ArrayList<Seance> seances = seancesForFilm.stream().filter(seance ->
+                    seance.getTime().after(new Date(dateTime)))
+                    .filter(seance -> seance.getTime().before(calendar.getTime()))
+                    .collect(Collectors.toCollection(ArrayList::new));
+            if (!seances.isEmpty()) {
+                filmsWithSeances.add(new FilmWithSeance(film, seances));
+            }
         });
 
         return filmsWithSeances;

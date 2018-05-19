@@ -1,6 +1,7 @@
 package cinema.cloud.service.order.domain;
 
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -9,6 +10,7 @@ import java.util.Date;
 
 @Data
 @Entity
+@ToString(exclude = "order")
 public class Ticket implements Serializable {
     private static final long serialVersionUID = -1642346798652917708L;
     @Id

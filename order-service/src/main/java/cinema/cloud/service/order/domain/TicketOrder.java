@@ -1,5 +1,6 @@
 package cinema.cloud.service.order.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -22,6 +23,7 @@ public class TicketOrder implements Serializable {
     private Date orderDate;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "order")
+    @JsonIgnore
     private List<Ticket> tickets;
 
     @Column(name = "cost")

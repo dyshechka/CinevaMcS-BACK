@@ -104,6 +104,17 @@ public class OrderService {
         order.setUsername(username);
         TicketOrder savedOrder = orderRepository.save(order);
         cinemaOrder.setOrderId(savedOrder.getId());
+        cinemaOrder.setOrderDate(savedOrder.getOrderDate());
+        return cinemaOrder;
+    }
+
+    public CinemaOrder getMockOrder() {
+        TicketOrder one = orderRepository.findOne(2);
+        CinemaOrder cinemaOrder = new CinemaOrder();
+        cinemaOrder.setOrderId(one.getId());
+        cinemaOrder.setTickets(one.getTickets());
+        cinemaOrder.setCommonCost(one.getCost());
+        cinemaOrder.setOrderDate(one.getOrderDate());
         return cinemaOrder;
     }
 }

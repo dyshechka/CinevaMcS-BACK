@@ -31,4 +31,9 @@ public class OrderController {
     public ResponseEntity<List<Integer>> getTicketForSeance(@PathVariable Integer seanceId) {
         return new ResponseEntity(orderService.getBlockedSeatIdsForSeance(seanceId), HttpStatus.OK);
     }
+
+    @GetMapping(value = "/mockOrder")
+    public ResponseEntity<CinemaOrder> getMockOrder() {
+        return new ResponseEntity(orderService.getMockOrder(), HttpStatus.OK);
+    }
 }

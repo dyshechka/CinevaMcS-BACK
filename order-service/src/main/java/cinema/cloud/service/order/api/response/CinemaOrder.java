@@ -5,6 +5,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -13,6 +14,7 @@ public class CinemaOrder implements Serializable {
     private Integer orderId;
     private List<Ticket> tickets;
     private BigDecimal commonCost;
+    private Date orderDate;
 
     public CinemaOrder() {
     }

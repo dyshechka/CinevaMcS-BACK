@@ -11,8 +11,11 @@ import java.util.List;
 
 @Repository
 public interface SeanceRepository extends CrudRepository<Seance, Integer> {
-    @Query("SELECT s FROM Seance s WHERE s.filmId = :filmId")
-    List<Seance> getSeancesByFilmId(@Param("filmId") Integer filmId);
+    @Query("SELECT s FROM Seance s WHERE s.filmId = :filmId and s.time between :currentDate and :targetDate")
+    List<Seance> getSeancesByFilmId(
+            @Param("filmId") Integer filmId,
+            @Param("currentDate") Date currentDate,
+            @Param("targetDate") Date targetDate);
 
     Iterable<Seance> getSeanceByTimeBetweenAndHallId(Date start, Date finish, Integer hallId);
 }
