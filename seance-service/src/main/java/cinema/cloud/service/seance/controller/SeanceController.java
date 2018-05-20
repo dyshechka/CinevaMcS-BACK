@@ -1,7 +1,9 @@
 package cinema.cloud.service.seance.controller;
 
 import cinema.cloud.service.seance.api.FreeTimeInterval;
+import cinema.cloud.service.seance.domain.FilmFormat;
 import cinema.cloud.service.seance.domain.Seance;
+import cinema.cloud.service.seance.repository.FilmFormatRepository;
 import cinema.cloud.service.seance.repository.SeanceRepository;
 import cinema.cloud.service.seance.service.SeanceService;
 import org.joda.time.DateTime;
@@ -22,6 +24,9 @@ public class SeanceController {
 
     @Autowired
     private SeanceRepository seanceRepository;
+
+    @Autowired
+    private FilmFormatRepository filmFormatRepository;
 
     @GetMapping(value = "/film/{id}/seances")
     public List<Seance> getSeancesByFilmId(@PathVariable Integer id, @RequestParam("date") Long date) {
@@ -49,7 +54,17 @@ public class SeanceController {
     }
 
     @GetMapping(value = "/seance/freeTime")
-    public List<FreeTimeInterval> getFreeTimeForDayAndHall(@RequestParam Long date, Integer hallId) {
-        return seanceService.getFreeTimeByDayAndHall(date, hallId);
+    public List<FreeTimeInterval> getFreeTimeForDayAndHall(@RequestParam Long date, Integer hallId, Integer filmId) {
+        return seanceService.getFreeTimeByDayAndHall(date, hallId, filmId);
+    }
+
+    @GetMapping(value = "/filmFormats")
+    public Iterable<FilmFormat> getFilmFormats() {
+        return filmFormatRepository.findAll();
+    }
+
+    @PostMapping(value = "/crud/seance")
+    public Seance saveSeance(@RequestBody Seance seance) {
+        return seanceRepository.save(seance);
     }
 }

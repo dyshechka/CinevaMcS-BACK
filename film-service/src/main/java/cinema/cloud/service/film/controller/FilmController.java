@@ -7,7 +7,6 @@ import cinema.cloud.service.film.service.FilmService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -20,8 +19,13 @@ public class FilmController {
     private FilmRepository filmRepository;
 
     @GetMapping(path = "/films")
-    public ArrayList<FilmWithSeance> getAllFilms(@RequestParam(value = "dateTime", required = false) Long dateTime) {
+    public List<FilmWithSeance> getAllFilms(@RequestParam(value = "dateTime", required = false) Long dateTime) {
         return filmService.getFilmsWithSeances(dateTime);
+    }
+
+    @GetMapping(path = "/filmsByDate")
+    public List<Film> getFilmsByDate(@RequestParam(value = "dateTime", required = false) Long dateTime) {
+        return filmService.getFilmsByDate(dateTime);
     }
 
     @GetMapping(path = "/film/{id}")

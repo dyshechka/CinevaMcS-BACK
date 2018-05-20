@@ -39,7 +39,7 @@ public class SeanceService {
     }
 
     @Transactional
-    public List<FreeTimeInterval> getFreeTimeByDayAndHall(Long date, Integer hallId) {
+    public List<FreeTimeInterval> getFreeTimeByDayAndHall(Long date, Integer hallId, Integer filmId) {
         Date time = new Date(date);
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(time);
@@ -73,39 +73,60 @@ public class SeanceService {
             date = genesisLeft;
         }
 
-        List<FreeTimeInterval> intervals = new ArrayList<>();
+        List<FreeTimeInterval> freeIntervals = new ArrayList<>();
         long maxRightBorder = date;
 
         while (maxRightBorder < maxDayTime) {
             FreeTimeInterval interval = getInterval(maxRightBorder, seances, filmsDurations);
-            intervals.add(interval);
-            // TODO commented for checking
-//            Date gs = new Date(interval.getStart());
-//            Date gf = new Date(interval.getFinish());
-            maxRightBorder = interval.getFinish();
+            if (interval.getStart() == null) {
+                maxRightBorder = interval.getFinish();
+            } else {
+                freeIntervals.add(interval);
+                maxRightBorder = interval.getFinish();
+            }
         }
 
-        return intervals;
+        List<Film> filmsByDate = filmClient.getFilmsByDate(date);
+        Map<Integer, Integer> filmsByDateDurations = new HashMap<>();
+        filmsByDate.forEach(film -> filmsByDateDurations.put(film.getId(), film.getDuration()));
+        Integer filmDuration = filmsByDateDurations.get(filmId);
+        List<FreeTimeInterval> specifiedTimeIntervals = new ArrayList<>();
+
+        for (FreeTimeInterval freeInterval : freeIntervals) {
+            Long begin = freeInterval.getStart();
+            while (begin < freeInterval.getFinish()) {
+                FreeTimeInterval freeTimeInterval = new FreeTimeInterval();
+                freeTimeInterval.setStart(begin);
+                long end = begin + filmDuration * 60000 + 1200000;
+                if (end > freeInterval.getFinish()) {
+                    break;
+                }
+                freeTimeInterval.setFinish(end);
+                begin = end;
+                specifiedTimeIntervals.add(freeTimeInterval);
+            }
+        }
+
+        return specifiedTimeIntervals;
     }
 
-    private FreeTimeInterval getInterval(Long startTime, List<Seance> seances, Map<Integer, Integer> filmsDurations) {
+    private FreeTimeInterval getInterval(long startTime, List<Seance> seances, Map<Integer, Integer> filmsDurations) {
         Date startDate = new Date(startTime);
 
-        Long finalStartTime = startTime;
-        ArrayList<Seance> seanceForCurrentStartTime = seances.stream().filter(seance -> seance.getTime().getTime() == finalStartTime)
+        ArrayList<Seance> seanceForCurrentStartTime = seances.stream().filter(seance -> seance.getTime().getTime() == startTime)
                 .collect(Collectors.toCollection(ArrayList::new));
 
         if (!seanceForCurrentStartTime.isEmpty()) {
-            startTime = startTime + filmsDurations
-                    // Transform to long and add tech pause
-                    .get(seanceForCurrentStartTime.get(0).getFilmId()).longValue() * 60000 + 1200000;
+            Seance seance = seanceForCurrentStartTime.get(0);
+            // 1200000 - tech pause (20 min)
+            return new FreeTimeInterval(null, seance.getTime().getTime()
+                    + filmsDurations.get(seance.getFilmId()) * 60000 + 1200000);
         }
 
         FreeTimeInterval freeTimeInterval = new FreeTimeInterval();
         Optional<Seance> first = seances.stream().filter(seance -> seance.getTime().after(startDate)).findFirst();
-        Long newFinalStartTime = startTime;
         first.ifPresent(seance -> {
-            freeTimeInterval.setStart(newFinalStartTime);
+            freeTimeInterval.setStart(startDate.getTime());
             freeTimeInterval.setFinish(seance.getTime().getTime());
         });
         if (freeTimeInterval.getStart() == null) {
