@@ -32,3 +32,5 @@ zuul:
       url: http://localhost:8084
     hall-service:
       url: http://localhost:8083
+    seance-service:
+      url: http://localhost:8085
