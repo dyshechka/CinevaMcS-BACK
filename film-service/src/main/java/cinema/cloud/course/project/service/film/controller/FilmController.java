@@ -5,8 +5,13 @@ import cinema.cloud.course.project.service.film.domain.Film;
 import cinema.cloud.course.project.service.film.repository.FilmRepository;
 import cinema.cloud.course.project.service.film.service.FilmService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -45,5 +50,27 @@ public class FilmController {
     @GetMapping(path = "/getMostExpectedFilms")
     public Iterable<Film> getMostExpectedFilms() {
         return filmRepository.findAll(mostExpectedFilmIds);
+    }
+
+    @GetMapping(path = "/getImg")
+    public ResponseEntity getPoster(@RequestParam Integer filmId) {
+        ClassPathResource imgFile = new ClassPathResource("img/" + String.valueOf(filmId) + ".png");
+
+        try {
+            return ResponseEntity
+                    .ok()
+                    .contentType(MediaType.IMAGE_PNG)
+                    .body(new InputStreamResource(imgFile.getInputStream()));
+        } catch (IOException e) {
+            ClassPathResource stub = new ClassPathResource("img/placeholder.png");
+            try {
+                return ResponseEntity
+                        .ok()
+                        .contentType(MediaType.IMAGE_PNG)
+                        .body(new InputStreamResource(stub.getInputStream()));
+            } catch (IOException ex) {
+                return (ResponseEntity) ResponseEntity.badRequest();
+            }
+        }
     }
 }
