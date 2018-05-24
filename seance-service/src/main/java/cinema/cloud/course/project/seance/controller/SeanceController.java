@@ -67,4 +67,9 @@ public class SeanceController {
     public Seance saveSeance(@RequestBody Seance seance) {
         return seanceRepository.save(seance);
     }
+
+    @DeleteMapping(value = "/delete/seance/{seanceId}")
+    public void saveSeance(@PathVariable Integer seanceId) {
+        seanceRepository.delete(Integer.valueOf(seanceId));
+    }
 }
