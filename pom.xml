@@ -4,21 +4,20 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>ru.makaranddmitry</groupId>
-    <artifactId>spring-cloud-demo</artifactId>
+    <groupId>cinema-cloud-course-project</groupId>
+    <artifactId>cinema-cloud-course-project</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>spring-cloud-demo</name>
+    <name>cinema-cloud-course-project</name>
 
     <modules>
         <module>auth-service</module>
         <module>discovery-service</module>
         <module>gateway-service</module>
-        <module>test-service-1</module>
-        <module>test-service-2</module>
         <module>film-service</module>
         <module>hall-service</module>
         <module>order-service</module>
         <module>seance-service</module>
+        <module>vacancy-service</module>
     </modules>
 </project>

@@ -29,7 +29,3 @@ logging:
       hibernate: DEBUG
 server:
   port: 8085
-eureka:
-  client:
-    service-url:
-      defaultZone: http://localhost:5001/eureka/
