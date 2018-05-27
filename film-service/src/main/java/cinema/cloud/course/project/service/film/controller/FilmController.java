@@ -2,11 +2,14 @@ package cinema.cloud.course.project.service.film.controller;
 
 import cinema.cloud.course.project.service.film.api.FilmWithSeance;
 import cinema.cloud.course.project.service.film.domain.Film;
+import cinema.cloud.course.project.service.film.domain.Genre;
 import cinema.cloud.course.project.service.film.repository.FilmRepository;
+import cinema.cloud.course.project.service.film.repository.GenreRepository;
 import cinema.cloud.course.project.service.film.service.FilmService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,10 +28,13 @@ public class FilmController {
     @Autowired
     private FilmRepository filmRepository;
 
+    @Autowired
+    private GenreRepository genreRepository;
+
     static private final List<Integer> mostExpectedFilmIds = Collections.unmodifiableList(Arrays.asList(1, 2));
 
     @GetMapping(path = "/films")
-    public List<FilmWithSeance> getAllFilms(@RequestParam(value = "dateTime", required = false) Long dateTime) {
+    public List<FilmWithSeance> getAllFilmsByDate(@RequestParam(value = "dateTime", required = false) Long dateTime) {
         return filmService.getFilmsWithSeances(dateTime);
     }
 
@@ -72,5 +78,45 @@ public class FilmController {
                 return (ResponseEntity) ResponseEntity.badRequest();
             }
         }
+    }
+
+    @PostMapping("/crud/film")
+    public ResponseEntity addFilm(@RequestBody Film film) {
+        try {
+            filmRepository.save(film);
+            return new ResponseEntity(HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PatchMapping("/crud/film")
+    public ResponseEntity editFilm(@RequestBody Film film) {
+        try {
+            filmRepository.save(film);
+            return new ResponseEntity(HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @DeleteMapping("/crud/film")
+    public ResponseEntity deleteFilm(Integer filmId) {
+        try {
+            filmRepository.delete(filmId);
+            return new ResponseEntity(HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/crud/films")
+    public Iterable<Film> getAllFilms() {
+        return filmRepository.findAll();
+    }
+
+    @GetMapping("/crud/genres")
+    public Iterable<Genre> getGenres() {
+        return genreRepository.findAll();
     }
 }

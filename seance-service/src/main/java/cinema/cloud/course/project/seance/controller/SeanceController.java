@@ -70,6 +70,6 @@ public class SeanceController {
 
     @DeleteMapping(value = "/delete/seance/{seanceId}")
     public void saveSeance(@PathVariable Integer seanceId) {
-        seanceRepository.delete(Integer.valueOf(seanceId));
+        seanceRepository.delete(seanceId);
     }
 }
