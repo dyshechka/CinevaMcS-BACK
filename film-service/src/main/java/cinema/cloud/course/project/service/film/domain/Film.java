@@ -47,7 +47,7 @@ public class Film extends AbstractDomain {
     )
     private List<Genre> genres = new ArrayList<>();
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_rental_period")
     private RentalPeriod rentalPeriod;
 }

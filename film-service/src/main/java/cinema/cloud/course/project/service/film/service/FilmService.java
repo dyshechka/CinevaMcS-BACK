@@ -3,8 +3,8 @@ package cinema.cloud.course.project.service.film.service;
 import cinema.cloud.course.project.service.film.api.FilmWithSeance;
 import cinema.cloud.course.project.service.film.api.Seance;
 import cinema.cloud.course.project.service.film.client.SeanceClient;
-import cinema.cloud.course.project.service.film.domain.Film;
-import cinema.cloud.course.project.service.film.repository.FilmRepository;
+import cinema.cloud.course.project.service.film.domain.*;
+import cinema.cloud.course.project.service.film.repository.*;
 import com.google.common.collect.Lists;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,9 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Service
 public class FilmService {
@@ -25,6 +27,21 @@ public class FilmService {
 
     @Autowired
     private SeanceClient seanceClient;
+
+    @Autowired
+    private FilmRepository filmRepository;
+
+    @Autowired
+    private RentalPeriodRepository rentalPeriodRepository;
+
+    @Autowired
+    private AgeRestrictionsRepository restrictionsRepository;
+
+    @Autowired
+    private CountryRepository countryRepository;
+
+    @Autowired
+    private GenreRepository genreRepository;
 
     @Transactional
     public ArrayList<Film> getFilmsByDate(Long dateTime) {
@@ -85,5 +102,29 @@ public class FilmService {
         }
 
         return filmsWithSeances;
+    }
+
+    @Transactional
+    public void saveFilm(Film film) {
+        RentalPeriod rentalPeriod = rentalPeriodRepository.findOne(film.getRentalPeriod().getId());
+
+        ArrayList<Integer> ageRestrictionIds = film.getAgeRestrictions().stream().map(AbstractDomain::getId).collect(Collectors.toCollection(ArrayList::new));
+        Iterable<AgeRestriction> iterableAgeRestrictions = restrictionsRepository.findAll(ageRestrictionIds);
+        List<AgeRestriction> ageRestrictions = StreamSupport.stream(iterableAgeRestrictions.spliterator(), false).collect(Collectors.toCollection(ArrayList::new));
+
+        ArrayList<Integer> genresIds = film.getGenres().stream().map(AbstractDomain::getId).collect(Collectors.toCollection(ArrayList::new));
+        Iterable<Genre> iterableGenres = genreRepository.findAll(genresIds);
+        List<Genre> genres = StreamSupport.stream(iterableGenres.spliterator(), false).collect(Collectors.toCollection(ArrayList::new));
+
+        ArrayList<Integer> countrieIds = film.getCountries().stream().map(AbstractDomain::getId).collect(Collectors.toCollection(ArrayList::new));
+        Iterable<Country> iterableCountry = countryRepository.findAll(countrieIds);
+        List<Country> countries = StreamSupport.stream(iterableCountry.spliterator(), false).collect(Collectors.toCollection(ArrayList::new));
+
+        film.setCountries(countries);
+        film.setAgeRestrictions(ageRestrictions);
+        film.setRentalPeriod(rentalPeriod);
+        film.setGenres(genres);
+
+        filmRepository.save(film);
     }
 }

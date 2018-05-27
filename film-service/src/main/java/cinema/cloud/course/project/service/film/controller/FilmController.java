@@ -1,10 +1,8 @@
 package cinema.cloud.course.project.service.film.controller;
 
 import cinema.cloud.course.project.service.film.api.FilmWithSeance;
-import cinema.cloud.course.project.service.film.domain.Film;
-import cinema.cloud.course.project.service.film.domain.Genre;
-import cinema.cloud.course.project.service.film.repository.FilmRepository;
-import cinema.cloud.course.project.service.film.repository.GenreRepository;
+import cinema.cloud.course.project.service.film.domain.*;
+import cinema.cloud.course.project.service.film.repository.*;
 import cinema.cloud.course.project.service.film.service.FilmService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
@@ -30,6 +28,15 @@ public class FilmController {
 
     @Autowired
     private GenreRepository genreRepository;
+
+    @Autowired
+    private CountryRepository countryRepository;
+
+    @Autowired
+    private AgeRestrictionsRepository ageRestrictionsRepository;
+
+    @Autowired
+    private RentalPeriodRepository rentalPeriodRepository;
 
     static private final List<Integer> mostExpectedFilmIds = Collections.unmodifiableList(Arrays.asList(1, 2));
 
@@ -83,9 +90,10 @@ public class FilmController {
     @PostMapping("/crud/film")
     public ResponseEntity addFilm(@RequestBody Film film) {
         try {
-            filmRepository.save(film);
+            filmService.saveFilm(film);
             return new ResponseEntity(HttpStatus.OK);
         } catch (Exception e) {
+            e.printStackTrace();
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -101,7 +109,7 @@ public class FilmController {
     }
 
     @DeleteMapping("/crud/film")
-    public ResponseEntity deleteFilm(Integer filmId) {
+    public ResponseEntity deleteFilm(@RequestParam Integer filmId) {
         try {
             filmRepository.delete(filmId);
             return new ResponseEntity(HttpStatus.OK);
@@ -118,5 +126,20 @@ public class FilmController {
     @GetMapping("/crud/genres")
     public Iterable<Genre> getGenres() {
         return genreRepository.findAll();
+    }
+
+    @GetMapping("/crud/countries")
+    public Iterable<Country> getCountries() {
+        return countryRepository.findAll();
+    }
+
+    @GetMapping("/crud/ageRestrictions")
+    public Iterable<AgeRestriction> getAgeRestrictions() {
+        return ageRestrictionsRepository.findAll();
+    }
+
+    @GetMapping("/crud/rentalPeriods")
+    public Iterable<RentalPeriod> getRentalPeriods() {
+        return rentalPeriodRepository.findAll();
     }
 }
